@@ -4,7 +4,7 @@ using SDL2;
 namespace SDL2
 {
 	
-	public class NFont
+	public class NFont : IDisposable
 	{
 		const int TTF_STYLE_OUTLINE = 16;
 		
@@ -85,9 +85,16 @@ namespace SDL2
 			load(filename_ttf, pointSize, color, style);
 		}
 		
+		public void Dispose()
+		{
+			free();
+			SDL_FontCache.FC_FreeFont(font);
+			GC.SuppressFinalize(this);
+		}
+		
 		~NFont()
 		{
-			SDL_FontCache.FC_FreeFont(font);
+			Dispose();
 		}
 		
 		// Loading
