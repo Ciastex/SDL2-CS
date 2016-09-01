@@ -88,7 +88,6 @@ namespace SDL2
 		public void Dispose()
 		{
 			free();
-			SDL_FontCache.FC_FreeFont(font);
 			GC.SuppressFinalize(this);
 		}
 		
